@@ -24,7 +24,7 @@ steps:
 # From the above step all the artifacts will be in 's' folder. So we need to copy those artifacts to 'a' folder, to do this
 # Azure pipelines provide us a snippet/task called "copy files" and $(build.artifactstagingdirectory) env variable.
 
-- task: CopyFiles from 's' folder to 'a'
+- task: CopyFiles@2
   inputs:
     Contents: '**/.war'
     TargetFolder: '$(build.artifactstagingdirectory)'
