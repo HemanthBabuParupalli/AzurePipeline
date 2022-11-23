@@ -26,7 +26,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    Contents: '**/.war'
+    Contents: '**/*.war'
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 # In this step we have to publish these artifacts to out project location using 'Publish build artifacts' task.
