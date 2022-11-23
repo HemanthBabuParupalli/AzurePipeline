@@ -20,3 +20,19 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+
+# From the above step all the artifacts will be in 's' folder. So we need to copy those artifacts to 'a' folder, to do this
+# Azure pipelines provide us a snippet/task called "copy files" and $(build.artifactstagingdirectory) env variable.
+
+- task: CopyFiles from 's' folder to 'a'
+  inputs:
+    Contents: '**/.war'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+# In this step we have to publish these artifacts to out project location using 'Publish build artifacts' task.
+# (From ubuntu to Azure pipelines)
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Artifacts'
+    publishLocation: 'Container'
